@@ -4,6 +4,8 @@ $ahora=getdate();
 
 $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 $dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+$mes =13;
+
 
 
 if(isset($_GET['año'])){
