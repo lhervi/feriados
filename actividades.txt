@@ -1,0 +1,6 @@
+.- Crear un componente que reciba las peticiones
+    - Si no se especifica nada, regresa en un json, los feriados del año en curso
+    - Si se suministra el año, regresa los feriados de ese año
+    - Si se suministra año y mes, un json con los feriados de ese mes
+    - Si se suministra un año, un mes, y un día, retorna true o false si es feriado o no
+       
