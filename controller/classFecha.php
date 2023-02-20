@@ -4,6 +4,77 @@ date_default_timezone_set("America/Caracas");
 
 class Fecha{
 
+    
+
+    static function getMesEnLetras(int $mesEnNumeros):string{
+        
+        $mesEnLetras="";
+        
+        if($mesEnNumeros>=1 && $mesEnNumeros<=12){
+            $meses=self::getListaMeses(false);    
+            return $meses[$mesEnNumeros];
+        }
+        return $mesEnLetras;
+       
+    }
+    
+    static function getMesEnNumero(string $mesEnLetras):int{
+        
+        $meses=self::getListaMeses(false);    
+        $mesEnLetras = ucfirst($mesEnLetras);
+        
+        $mesEnNumero = array_search($mesEnLetras, $meses);     
+           
+        return $mesEnNumero;
+       
+    }
+
+    static function getListaDias(){
+        $dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+        return $dias;
+    }
+
+    static function getListaMeses(bool $indiceEnMeses, $upper=true):array{
+        
+        $meses = ['enero'=>'Enero', 'febrero'=>'Febrero', 'marzo'=>'Marzo', 
+            'abrol'=>'Abril', 'mayo'=>'Mayo', 'junio'=>'Junio', 
+            'julio'=>'Julio', 'agosto'=>'Agosto', 'septiembre'=>'Septiembre', 
+            'octubre'=>'Octubre', 'noviembre'=>'Noviembre', 'diciembre'=>'Diciembre'];
+
+        if ($indiceEnMeses){
+            return $meses;
+        }else{
+            $prov=array();
+            $prov[0]=null;
+            foreach($meses as $mes){
+                $prov[]=$mes;
+            }
+            unset($prov[0]);
+            $meses = $prov;
+        }
+        if ($upper){
+            return $meses;
+        }else{
+            return array_map(fn($mes)=>strtolower($mes), $meses);
+        }
+        
+    }
+    
+    static function getAñoDelMes(int $mes):int{
+        if($mes>=1 && $mes<=12){
+            $fechaActual = getdate();
+            $mesActual = $fechaActual['mon'];
+            if($mesActual>$mes){
+                return $fechaActual['year'];
+            }else{
+                return $fechaActual['year']-1;
+            }
+        }else{
+            return -1;
+        }    
+          
+    }
+
     static function getCurrentYear(){
         $ahora=getdate();
         return $ahora['year'];       
@@ -34,6 +105,9 @@ class Fecha{
 
     static function monthOk($mes){
         $mesActual = self::getCurrentMonth();
+        if($mes<1 || $mes>12){
+            return false;
+        }
         if(abs($mesActual-$mes)>11){
             return false;
         }else{
