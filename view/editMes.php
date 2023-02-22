@@ -71,25 +71,25 @@ if(isset($_GET['reg'])){
         const respuesta = confirm("Estas seguro de actualizar este mes con estos dias?");
         if (respuesta){
             
-            const params = {
+            /* const params = {
                 fecha: fecha,
                 dias: listaNuevosDias
-            };            
+            };       */      
 
-            const options = {
+            /* const options = {
                 method: "POST",
                 headers: {"Content-type": "application/json"},
                 body: JSON.stringify(params)                
-            };
+            }; */
             
-            //var datos = new FormData(formulario);
-
-            //datos.append('fecha', fecha);
+            var datos = new FormData(formulario);
+            datos.append('fecha', fecha);
 
             url = "http://10.150.11.96:9012/controller/actualizarMes.php";
             
             fetch(url, {
                 method: 'POST',                
+                headers: {"Content-type": "application/json"},
                 body: datos
             })
                 .then(response => resultado.json())
