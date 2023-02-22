@@ -4,7 +4,44 @@ date_default_timezone_set("America/Caracas");
 
 class Fecha{
 
+    static function getDiasPermitidos(string $añoTexto, string $mesTexto){
+        
+        $año = intval($añoTexto);
+        $mes = self::getMesDeStringANumero($mesTexto);       
+        
+        $meses31 = [1, 3, 5, 7, 8, 10, 12];
+        $meses30 = [4, 6, 9, 11];
+
+        if (in_array($mes, $meses31)){
+            return 31;
+        }elseif(in_array($mes, $meses30)){
+            return 30;
+        }
+
+        $ultimoDiaFebrero = $añoTexto . "-02-28";
+        $date = new DateTimeImmutable($ultimoDiaFebrero);
+        $diaSiguiente = $date->add(new DateInterval('P1D'));
+        $mesConUnDiaMas = $diaSiguiente->format('m');
+        
+        if ($mesConUnDiaMas == intval($mesTexto)){
+            return 29;
+        }else{
+            return 28;
+        }
+    }
     
+    static function getAñoMesEnEnteros(string $fecha):array{
+        //2022-febrero
+        $añoTexto = substr($fecha, 0, 4);
+        $mesTexto = substr($fecha, 5);
+        
+        $año = intval($añoTexto);
+        $mes = self::getMesDeStringANumero($mesTexto);
+
+        $añoMes = ['año'=>$año, 'mes'=>$mes];
+
+        return $añoMes;
+    }
 
     static function getMesEnLetras(int $mesEnNumeros):string{
         

@@ -53,7 +53,11 @@ $arregloFeriados = json_decode($feriados, true);
     meses = document.getElementsByClassName("edit");
 
     function iden(mes){
-        alert(mes.id);
+        urlEdit = urlEdit = "http://10.150.11.96:9012/view/editMes.php?reg=" + mes.id;
+        name = "edit";
+        spec = "_blank";
+        size = "width=200,height=100";
+        window.open(urlEdit, "", "_blank", "width=200,height=100");        
     }
     
     for (let i=0; i<meses.length; i++){

@@ -10,3 +10,11 @@
 .edit{
     color: grey;
 }
+.mensajeError{
+    color: red;
+}
+.añoEdicion{
+    font-size:60px;
+    font-weight: bold;
+    color:mediumblue
+}
