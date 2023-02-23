@@ -45,7 +45,7 @@ if(isset($_GET['reg'])){
         <tr>
             <td>
                 <input type="submit" value="Enviar" class="btn btn-primary" id="enviar" disabled> 
-                </form>
+            </form>
             </td>
             <td id='mensajeError' class='mensajeError'></td>
         </tr>
@@ -61,9 +61,9 @@ if(isset($_GET['reg'])){
     }
 
     function reportarResultado(resultado){
-        if(data){
-            mensajeError.innerHTML = "<span>edicón exitosa</span>";            
-        }
+        
+        mensajeError.innerHTML = "<span>edicón exitosa</span>";            
+        
     }
 
     function procesar(e){
@@ -71,29 +71,20 @@ if(isset($_GET['reg'])){
         const respuesta = confirm("Estas seguro de actualizar este mes con estos dias?");
         if (respuesta){
             
-            /* const params = {
-                fecha: fecha,
-                dias: listaNuevosDias
-            };       */      
-
-            /* const options = {
-                method: "POST",
-                headers: {"Content-type": "application/json"},
-                body: JSON.stringify(params)                
-            }; */
-            
             var datos = new FormData(formulario);
             datos.append('fecha', fecha);
 
             url = "http://10.150.11.96:9012/controller/actualizarMes.php";
+
+            var requestOptions = {
+                method: 'POST',
+                body: datos,
+                redirect: 'follow'
+            };
             
-            fetch(url, {
-                method: 'POST',                
-                headers: {"Content-type": "application/json"},
-                body: datos
-            })
-                .then(response => resultado.json())
-                .then(data => reportarResultado)
+            fetch(url, requestOptions)
+                .then(respuesta => respuesta.text())
+                .then(data=>reportarResultado(data));
         }else{
             nuevosDias.focus();
         }

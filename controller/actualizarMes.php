@@ -4,7 +4,9 @@ include_once (__DIR__ . "/classFeriado.php");
 
 
 if (isset($_POST['fecha'])){
-    $diasTexto = $_POST['dias'];
+
+    $diasTexto = explode(", ", $_POST['dias']);
+
     $fecha = $_POST['fecha'];
 
     $añoTexto = substr($fecha, 0, 4);

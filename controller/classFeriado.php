@@ -19,7 +19,9 @@ class Feriado{
     }
 
     function saveFeriados(){
-        file_put_contents(json_encode(self::$años), JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE);
+        $añosJson = json_encode(self::$años, JSON_PRETTY_PRINT, JSON_UNESCAPED_UNICODE);
+        $result = file_put_contents(FERIADOS_JSON, $añosJson);
+        return $result;
     }
 
     function allYear(){
@@ -48,9 +50,13 @@ class Feriado{
 
     function setMonth(string $año, string $mes, array $dias){        
         self::$años[$año][$mes] = $dias;        
-        return true;
+        $result = $this->saveFeriados();
+        if ($result){
+            return true;
+        }else{
+            return false;
+        }        
     }
-
 
 }
 
